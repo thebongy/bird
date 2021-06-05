@@ -21,6 +21,11 @@ func Info(msg string) {
 	color.Cyan(fmt.Sprintf("\r[bird] %-50s ", msg))
 }
 
+// Success is used for logging
+func Success(msg string) {
+	color.Green(fmt.Sprintf("\r[bird] %-50s ", msg))
+}
+
 // Error is used to log error messages
 func Error(msg string) {
 	color.Red(fmt.Sprintf("\r[bird] %-50s ", msg))

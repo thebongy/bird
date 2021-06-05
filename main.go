@@ -3,10 +3,12 @@ package main
 import (
 	"bufio"
 	"flag"
+	"fmt"
 	"os"
 	"sync"
 
 	"github.com/roerohan/bird/brutus"
+	"github.com/roerohan/bird/crt"
 	"github.com/roerohan/bird/logger"
 	"github.com/roerohan/bird/progress"
 )
@@ -28,8 +30,19 @@ func main() {
 		success = append(success, "200")
 	}
 
+	for _, url := range urls {
+		if enableCRT {
+			logger.Success(fmt.Sprintf("Searching subdomains for %s on Crt.sh", url))
+			crtParser := crt.New(url)
+			for _, record := range crtParser.Parse() {
+				logger.Info(record)
+			}
+		}
+	}
+
 	workers := 4
-	logger.Info("Starting 4 worker threads...")
+	logger.Success("Starting Bruteforce directory search")
+	logger.Success("Starting 4 worker threads...")
 
 	successCodes := make(map[string]bool)
 	for _, code := range success {

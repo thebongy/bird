@@ -9,9 +9,11 @@ import (
 
 // BirdHome stores the home directory where bird is installed
 var (
-	urls     Urls
-	wordlist string
-	success  Success
+	urls       Urls
+	wordlist   string
+	enableCRT  bool
+	numThreads int
+	success    Success
 )
 
 // Urls is a type to store multiple
@@ -53,5 +55,7 @@ func init() {
 
 	flag.Var(&urls, "u", "Target URL to be bruteforced [required]")
 	flag.Var(&success, "s", "Status code for success, default 200")
+	flag.BoolVar(&enableCRT, "c", false, "Enable reverse DNS search using crt.sh")
+	flag.IntVar(&numThreads, "t", 4, "Number of threads")
 	flag.StringVar(&wordlist, "w", "", "Path to wordlist [required]")
 }
